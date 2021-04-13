@@ -1,8 +1,11 @@
 import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoffeesModule } from './coffees/coffees.module';
+import { ApiKeyGuard } from './common/guards/api-key.guard';
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -26,6 +29,13 @@ import { CoffeesModule } from './coffees/coffees.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    CommonModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ApiKeyGuard,
+    },
   ],
 })
 export class AppModule {}
