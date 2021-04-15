@@ -19,8 +19,6 @@ export class AuthService {
 
     const passwordMatches = await compare(password, user.password_hash);
 
-    console.log(passwordMatches);
-
     if (!passwordMatches) {
       return null;
     }
