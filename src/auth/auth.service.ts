@@ -37,16 +37,19 @@ export class AuthService {
     return result;
   }
 
-  async login(user: SanitizedUser): Promise<{ access_token: string }> {
+  async signUser(user: SanitizedUser): Promise<string> {
     const payload = {
-      email: user.email,
       sub: user.id,
     };
 
-    const access_token = this.jwtService.sign(payload, {
+    return this.jwtService.sign(payload, {
       secret: this.authConstants.jwt.secret,
-      expiresIn: '1d',
+      expiresIn: this.authConstants.jwt.expiresIn,
     });
+  }
+
+  async login(user: SanitizedUser): Promise<{ access_token: string }> {
+    const access_token = await this.signUser(user);
 
     return { access_token };
   }
