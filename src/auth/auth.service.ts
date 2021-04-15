@@ -40,6 +40,7 @@ export class AuthService {
   async signUser(user: SanitizedUser): Promise<string> {
     const payload = {
       sub: user.id,
+      role: user.role,
     };
 
     return this.jwtService.sign(payload, {

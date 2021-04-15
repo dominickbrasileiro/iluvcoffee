@@ -1,3 +1,4 @@
+import { Role } from 'src/auth/enums/role.enum';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -16,6 +17,9 @@ export class User {
 
   @Column()
   password_hash: string;
+
+  @Column()
+  role: Role;
 }
 
 export interface SanitizedUser extends Omit<User, 'password_hash'> {
