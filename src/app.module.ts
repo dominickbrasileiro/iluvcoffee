@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
         PG_USER: Joi.string().required(),
         PG_PASSWORD: Joi.string().required(),
         PG_DATABASE: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
       }),
     }),
     CoffeesModule,
