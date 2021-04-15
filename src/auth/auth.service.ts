@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { compare } from 'bcrypt';
-import { User } from 'src/users/entities/user.entity';
+import { SanitizedUser } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { ValidateUserDto } from './dto/validate-user.dto';
 
@@ -8,9 +8,7 @@ import { ValidateUserDto } from './dto/validate-user.dto';
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
-  async validateUser(
-    validateUserDto: ValidateUserDto,
-  ): Promise<Omit<User, 'password_hash'> | null> {
+  async validateUser(validateUserDto: ValidateUserDto): Promise<SanitizedUser> {
     const { email, password } = validateUserDto;
 
     const user = await this.usersService.findByEmail(email);

@@ -17,3 +17,7 @@ export class User {
   @Column()
   password_hash: string;
 }
+
+export interface SanitizedUser extends Omit<User, 'password_hash'> {
+  password_hash?: never;
+}
