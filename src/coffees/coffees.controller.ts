@@ -19,7 +19,6 @@ export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  @Public()
   findAll(@Query() paginationQueryDto: PaginationQueryDto) {
     return this.coffeesService.findAll(paginationQueryDto);
   }
